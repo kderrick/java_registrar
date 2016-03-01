@@ -4,11 +4,11 @@ student.vtl
 #if ($student.getCourses())
   <p>Here are the courses this student is enrolled in:</p>
   #foreach ($course in $student.getCourses())
-    <li><a href="/courses/:id">$course.getDescription() $course.getNumber()</a></li>
+    <li><a href="/courses/$course.getId()">$course.getDescription() $course.getNumber()</a></li>
   #end
 #end
 
-<form action="/students/:id" method="post">
+<form action="/students/$student.getId()" method="post">
 
   <input id="student_id" name="student_id" type="hidden" value="$student.getId()">
 

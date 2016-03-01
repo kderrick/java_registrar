@@ -4,7 +4,7 @@ courses.vtl
 
 <ul>
 #foreach ($course in $courses)
-  <li><a href="/courses/:id">$course.getDescription() $course.getNumber()</a></li>
+  <li><a href="/courses/$course.getId()">$course.getDescription() $course.getNumber()</a></li>
 #end
 </ul>
 
