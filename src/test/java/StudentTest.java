@@ -27,6 +27,19 @@ public class StudentTest {
     assertTrue(newStudent.equals(savedStudent));
   }
 
+  @Test
+  public void save_assignsIdToObject() {
+    Student newStudent = new Student("Sally", "1900/01/01");
+    newStudent.save();
+    Student savedStudent = Student.all().get(0);
+    assertEquals(newStudent.getId(), savedStudent.getId());
+  }
 
-
+  @Test
+  public void find_locatesAllInstancesOfClassInDatabaseUsingId() {
+    Student newStudent = new Student("Sally" , "1900/01/01");
+    newStudent.save();
+    Student savedStudent = Student.find(newStudent.getId());
+    assertTrue(newStudent.equals(savedStudent));
+  }
 }
