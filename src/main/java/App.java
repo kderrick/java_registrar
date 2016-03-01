@@ -79,6 +79,17 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    post("/courses/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int courseId = Integer.parseInt(request.queryParams("course_id"));
+      int student_id = Integer.parseInt(request.queryParams("student_id"));
+      Course course = Course.find(courseId);
+      Student student = Student.find(student_id);
+      course.addStudent(student);
+      response.redirect("/courses/" + courseId);
+      return null;
+    });
+
 
 
     //   int id = Integer.parseInt(request.params("id"));

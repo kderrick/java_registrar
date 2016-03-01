@@ -1,13 +1,26 @@
 course.vtl
 
 <h2>$course.getDescription()</h2>
+#if ($course.getStudents())
+  <p>Here are the students enrolled in this course:</p>
+  #foreach ($student in $course.getStudents())
+    <li><a href="/students/$student.getId()">$student.getName() $student.getDate()</a></li>
+  #end
+#end
+
+<form action="/courses/$course.getId()" method="post">
+
+  <input id="course_id" name="course_id" type="hidden" value="$course.getId()">
 
 
+  <label for="student_id">Assign Student</label>
+  <select id="student_id" name="student_id" type="text">
+    #foreach($student in $allStudents)
+    <option value="$student.getId()">$student.getName() $student.getDate()</option>
+    #end
+  </select>
+  <button type="submit">Assign Student</button>
+</form>
 
-
-
-
-
-
-<a href="/students">Return to Student List</a>
-<a href="/courses">Return to Course List</a>
+  <a href="/students">Return to Student List</a>
+  <a href="/courses">Return to Course List</a>

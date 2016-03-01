@@ -56,6 +56,18 @@ public class IntegrationTest extends FluentTest {
     assertThat(pageSource()).contains("Jim");
     assertThat(pageSource()).contains("History");
   }
+
+  @Test
+  public void addStudentToCourse() {
+    Student newStudent = new Student("Jim", "12/12/2012");
+    newStudent.save();
+    Course newCourse = new Course("History", "101");
+    newCourse.save();
+    String coursePath = String.format("http://localhost:4567/courses/%d", newCourse.getId());
+    goTo(coursePath);
+    assertThat(pageSource()).contains("Jim");
+    assertThat(pageSource()).contains("History");
+  }
   /*
   @Test
   public void negativeNumber() {
