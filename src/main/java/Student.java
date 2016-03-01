@@ -83,4 +83,43 @@ public class Student {
       .executeUpdate();
     }
   }
-}
+
+  public void delete() {
+    String sql ="DELETE FROM students WHERE id = :id";
+    try(Connection con = DB.sql2o.open()) {
+      con.createQuery(sql)
+        .addParameter("id", id)
+        .executeUpdate();
+    }
+  }
+
+  public void addCourse (Course course) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO students_courses (student_id, course_id) VALUES (:student_id, :course_id)";
+      con.createQuery(sql)
+      .addParameter("student_id", this.getId())
+      .addParameter("course_id", course.getId())
+      .executeUpdate();
+    }
+  }
+
+  public ArrayList<Course> getCourses() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT course_id FROM students_courses WHERE student_id = :student_id";
+      List<Integer> courseIds = con.createQuery(sql)
+      .addParameter("student_id", this.getId())
+      .executeAndFetch(Integer.class);
+
+      ArrayList<Course> courses = new ArrayList<Course>();
+
+        for (Integer courseId : courseIds) {
+          String courseQuery = "SELECT * FROM courses WHERE id = :courseId";
+          Course course = con.createQuery(courseQuery)
+          .addParameter("courseId", courseId)
+          .executeAndFetchFirst(Course.class);
+          courses.add(course);
+        }
+        return courses;
+      }
+    }
+  }

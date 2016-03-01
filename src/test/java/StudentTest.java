@@ -58,4 +58,38 @@ public class StudentTest {
     newStudent.updateDate("1901/01/01");
     assertEquals(Student.all().get(0).getDate(), ("1901/01/01"));
   }
+
+  @Test
+  public void deleteStudent_deleteStudentObject() {
+    Student newStudent = new Student("Sally", "1900/01/01");
+    newStudent.save();
+    newStudent.delete();
+    assertEquals(Student.all().size(), 0);
+  }
+
+  @Test
+  public void addCourse_addsCourseToStudent() {
+    Student newStudent = new Student("Sally", "1900/01/01");
+    newStudent.save();
+
+    Course newCourse = new Course("History", "101");
+    newCourse.save();
+
+    newStudent.addCourse(newCourse);
+    Course savedCourse = newStudent.getCourses().get(0);
+    assertTrue(newCourse.equals(savedCourse));
+  }
+
+  @Test
+  public void getCourses_getsStudentCoursesByStudentID() {
+    Student newStudent = new Student("Sally", "1900/01/01");
+    newStudent.save();
+
+    Course newCourse = new Course("History", "101");
+    newCourse.save();
+
+    newStudent.addCourse(newCourse);
+    List savedCourses = newStudent.getCourses();
+    assertEquals(savedCourses.size(), 1);
+  }
 }
