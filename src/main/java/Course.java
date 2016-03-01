@@ -103,23 +103,17 @@ public class Course {
     }
   }
 
-  public ArrayList<Student> getStudents() {
+  public List<Student> getStudents() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT student_id FROM students_courses WHERE course_id = :course_id";
-      List<Integer> studentIds = con.createQuery(sql)
-      .addParameter("course_id", this.getId())
-      .executeAndFetch(Integer.class);
-
-      ArrayList<Student> students = new ArrayList<Student>();
-
-        for (Integer studentId : studentIds) {
-          String studentQuery = "SELECT * FROM students WHERE id = :studentId";
-          Student student = con.createQuery(studentQuery)
-          .addParameter("studentId", studentId)
-          .executeAndFetchFirst(Student.class);
-          students.add(student);
-        }
-        return students;
-      }
+      
+      String sql = "SELECT students.* FROM courses " +
+      "JOIN students_courses ON (courses.id = students_courses.course_id) " +
+      "JOIN students ON (students_courses.student_id = students.id) " +
+      "WHERE courses.id = :id";
+      List<Student> students = con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetch(Student.class);
+      return students;
     }
+  }
   }

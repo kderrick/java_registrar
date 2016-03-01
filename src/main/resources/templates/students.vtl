@@ -1,0 +1,19 @@
+students.vtl
+
+<h2>All Enrolled Students</h2>
+
+<ul>
+#foreach ($student in $students)
+  <li><a href="/students/:id">$student.getName()</a></li>
+#end
+</ul>
+
+<form action="/students" method="post">
+  <label for="student_name">Student Name</label>
+  <input id="student_name" name="student_name" type="text" required autofocus="autofocus">
+
+  <label for="enroll_date">Student Enrollment Date</label>
+  <input id="enroll_date" name="enroll_date" type="date" required>
+
+  <button type="submit">Add Student</button>
+</form>
