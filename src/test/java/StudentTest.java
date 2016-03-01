@@ -42,4 +42,20 @@ public class StudentTest {
     Student savedStudent = Student.find(newStudent.getId());
     assertTrue(newStudent.equals(savedStudent));
   }
+
+  @Test
+  public void updateName_updatesNameOfObject() {
+    Student newStudent = new Student("Sally", "1900/01/01");
+    newStudent.save();
+    newStudent.updateName("Susan");
+    assertEquals(Student.all().get(0).getName(), ("Susan"));
+  }
+
+  @Test
+  public void updateDate_updatesDateOfObject() {
+    Student newStudent = new Student("Sally", "1900/01/01");
+    newStudent.save();
+    newStudent.updateDate("1901/01/01");
+    assertEquals(Student.all().get(0).getDate(), ("1901/01/01"));
+  }
 }

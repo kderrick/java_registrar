@@ -56,12 +56,31 @@ public class Student {
 
   public static Student find(int id) {
     String sql = "SELECT id, student_name, enroll_date FROM students WHERE id = :id";
-      try(Connection con = DB.sql2o.open()) {
-        Student student = con.createQuery(sql)
-          .addParameter("id", id)
-          .executeAndFetchFirst(Student.class);
-          return student;
-      }
+    try(Connection con = DB.sql2o.open()) {
+      Student student = con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetchFirst(Student.class);
+      return student;
+    }
+  }
 
+  public void updateName(String student_name) {
+    String sql ="UPDATE students SET student_name = :student_name WHERE id = :id";
+    try(Connection con = DB.sql2o.open()) {
+      con.createQuery(sql)
+      .addParameter("student_name", student_name)
+      .addParameter("id", id)
+      .executeUpdate();
+    }
+  }
+
+  public void updateDate(String enroll_date) {
+    String sql ="UPDATE students SET enroll_date = :enroll_date WHERE id = :id";
+    try(Connection con = DB.sql2o.open()) {
+      con.createQuery(sql)
+      .addParameter("enroll_date", enroll_date)
+      .addParameter("id", id)
+      .executeUpdate();
+    }
   }
 }
