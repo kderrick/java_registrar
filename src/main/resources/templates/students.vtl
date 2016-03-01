@@ -4,7 +4,7 @@ students.vtl
 
 <ul>
 #foreach ($student in $students)
-  <li><a href="/students/:id">$student.getName()</a></li>
+  <li><a href="/students/$student.getId()">$student.getName()</a></li>
 #end
 </ul>
 
@@ -17,3 +17,6 @@ students.vtl
 
   <button type="submit">Add Student</button>
 </form>
+
+<a href="/students">Return to Student List</a>
+<a href="/courses">Return to Course List</a>

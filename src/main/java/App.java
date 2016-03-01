@@ -48,6 +48,38 @@ public class App {
       return null;
     });
 
+    get("/students/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int id = Integer.parseInt(request.params("id"));
+      Student student = Student.find(id);
+      model.put("student", student);
+      model.put("allCourses", Course.all());
+      model.put("template", "templates/student.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/students/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int studentId = Integer.parseInt(request.queryParams("student_id"));
+      int courseId = Integer.parseInt(request.queryParams("course_id"));
+      Course course = Course.find(courseId);
+      Student student = Student.find(studentId);
+      student.addCourse(course);
+      response.redirect("/students/" + studentId);
+      return null;
+    });
+
+    //   int id = Integer.parseInt(request.params("id"));
+    //   String description = request.queryParams("description");
+    //   Student student = Student.find(id);
+    //
+    //   // String number = request.queryParams("number");
+    //   Course newCourse = new Course(description, "101");
+    //   newCourse.save();
+    //   response.redirect("/students/:student.getId()");
+    //   return null;
+    // });
+
     //
     // get("/result", (request, response) -> {
     //   String textInput = request.queryParams("textInput");
