@@ -30,4 +30,16 @@ public class Student {
       return con.createQuery(sql).executeAndFetch(Student.class);
     }
   }
+
+  @Override
+  public boolean equals(Object otherStudent) {
+    if (!(otherStudent instanceof Student)) {
+      return false;
+    } else {
+      Student newStudent = (Student) otherStudent;
+      return this.getName().equals(newStudent.getName()) &&
+      this.getDate().equals(newStudent.getDate()) &&
+      this.getId() == newStudent.getId();
+    }
+  }
 }

@@ -11,15 +11,13 @@ public class StudentTest {
     assertEquals(Student.all().size(), 0);
   }
 
+  @Test
+  public void equals_returnsTrueIfNamesAreTheSame() {
+    Student firstStudent = new Student("Sally", "1900/01/01");
+    Student secondStudent = new Student("Sally", "1900/01/01");
+    assertTrue(firstStudent.equals(secondStudent));
+  }
 
 
-
-/*
-@Test
-public void giveChange_25cents_1quarter() {
-  App testApp = new App();
-  assertEquals("{Nickels=0, Dimes=0, Quarters=1, Pennies=0}", testApp.giveChange(25).toString());
-}
-*/
 
 }
