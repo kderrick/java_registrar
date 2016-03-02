@@ -52,6 +52,17 @@ public class App {
       return null;
     });
 
+    post("/students/:id/delete", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int studentId = Integer.parseInt(request.queryParams("studentId"));
+      Student student = Student.find(studentId);
+      student.delete();
+      response.redirect("/students");
+      return null;
+    });
+
+
+
     get("/courses", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       model.put("courses", Course.all());

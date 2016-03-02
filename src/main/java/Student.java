@@ -25,7 +25,7 @@ public class Student {
   }
 
   public static  List<Student> all() {
-    String sql = "SELECT id, student_name, enroll_date FROM students";
+    String sql = "SELECT id, student_name, enroll_date FROM students ORDER BY enroll_date";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Student.class);
     }

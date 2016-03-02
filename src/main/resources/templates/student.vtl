@@ -1,6 +1,7 @@
 student.vtl
 
 <h2>$student.getName()</h2>
+<h4>$student.getDate()</h4>
 #if ($student.getCourses())
   <p>Here are the courses this student is enrolled in:</p>
   #foreach ($course in $student.getCourses())

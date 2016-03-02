@@ -4,7 +4,11 @@ students.vtl
 
 <ul>
 #foreach ($student in $students)
-  <li><a href="/students/$student.getId()">$student.getName()</a></li>
+  <li><a href="/students/$student.getId()">$student.getName() $student.getDate()</a></li>
+  <form action="/students/:id/delete" method="post">
+    <input id="studentId" name="studentId" type="hidden" value="$student.getId()">
+    <button type="submit">Delete Student</button>
+  </form>
 #end
 </ul>
 
